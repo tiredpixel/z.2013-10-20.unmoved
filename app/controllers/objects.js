@@ -15,8 +15,7 @@ module.exports = function (app, redis) {
       
       redis.hset(key, req.params.object_id, JSON.stringify(data));
       
-      // TODO: Protect access properly!
-      res.header('Access-Control-Allow-Origin', '*');
+      res.header('Access-Control-Allow-Origin', req.headers.origin);
       res.send();
       
       console.log('[POST ' + req.originalUrl + ']', key, data);
@@ -38,8 +37,7 @@ module.exports = function (app, redis) {
             }
           }
           
-          // TODO: Protect access properly!
-          res.header('Access-Control-Allow-Origin', '*');
+          res.header('Access-Control-Allow-Origin', req.headers.origin);
           res.send(data);
           
           console.log('[GET ' + req.originalUrl + ']', key);
