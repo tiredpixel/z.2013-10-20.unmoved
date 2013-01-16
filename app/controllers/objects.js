@@ -1,4 +1,16 @@
-module.exports = function (app, redis) {
+module.exports = function (app, redis, url) {
+  
+  var checkPageId = function (req, res, next) {
+    if (req.params.page_id) {
+      var page_id = url.parse(req.params.page_id);
+      
+      if (page_id.host == process.env.REMOTE_HOST) {
+        next();
+      }
+    }
+  }
+  
+  app.all('/pages/:page_id/objects*', checkPageId);
   
   // POST /pages/:page_id/objects/:object_id
   app.post('/pages/:page_id/objects/:object_id', function (req, res) {
@@ -15,8 +27,7 @@ module.exports = function (app, redis) {
       
       redis.hset(key, req.params.object_id, JSON.stringify(data));
       
-      // TODO: Protect access properly!
-      res.header('Access-Control-Allow-Origin', '*');
+      res.header('Access-Control-Allow-Origin', req.headers.origin);
       res.send();
       
       console.log('[POST ' + req.originalUrl + ']', key, data);
@@ -38,8 +49,7 @@ module.exports = function (app, redis) {
             }
           }
           
-          // TODO: Protect access properly!
-          res.header('Access-Control-Allow-Origin', '*');
+          res.header('Access-Control-Allow-Origin', req.headers.origin);
           res.send(data);
           
           console.log('[GET ' + req.originalUrl + ']', key);
