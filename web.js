@@ -30,7 +30,7 @@ var checkOrigin = function (req, res, next) {
 
 app.all('/*', checkOrigin);
 
-require('./app/controllers/objects')(app, redis);
+require('./app/controllers/objects')(app, redis, url);
 
 
 // Run server.

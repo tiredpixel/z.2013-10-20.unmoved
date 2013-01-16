@@ -1,4 +1,16 @@
-module.exports = function (app, redis) {
+module.exports = function (app, redis, url) {
+  
+  var checkPageId = function (req, res, next) {
+    if (req.params.page_id) {
+      var page_id = url.parse(req.params.page_id);
+      
+      if (page_id.host == process.env.REMOTE_HOST) {
+        next();
+      }
+    }
+  }
+  
+  app.all('/pages/:page_id/objects*', checkPageId);
   
   // POST /pages/:page_id/objects/:object_id
   app.post('/pages/:page_id/objects/:object_id', function (req, res) {
