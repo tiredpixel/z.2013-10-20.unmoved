@@ -1,0 +1,28 @@
+.rectangle {
+  width: 200px;
+  height: 100px;
+}
+
+.rectangle#red {
+  background-color: red;
+}
+
+.rectangle#orange {
+  background-color: orange;
+}
+
+.rectangle#yellow {
+  background-color: yellow;
+}
+
+.rectangle#green {
+  background-color: green;
+}
+
+.rectangle#blue {
+  background-color: blue;
+}
+
+.rectangle#purple {
+  background-color: purple;
+}
