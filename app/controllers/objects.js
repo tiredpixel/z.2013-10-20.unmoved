@@ -1,6 +1,6 @@
-module.exports = function (app, redis, url) {
+module.exports = function(app, redis, url) {
   
-  var checkPageId = function (req, res, next) {
+  var checkPageId = function(req, res, next) {
     if (req.params.page_id) {
       var page_id = url.parse(req.params.page_id);
       
@@ -13,7 +13,7 @@ module.exports = function (app, redis, url) {
   app.all('/pages/:page_id/objects*', checkPageId);
   
   // POST /pages/:page_id/objects/:object_id
-  app.post('/pages/:page_id/objects/:object_id', function (req, res) {
+  app.post('/pages/:page_id/objects/:object_id', function(req, res) {
     if (req.params.page_id && req.params.object_id && req.body) {
       var key = process.env.REDIS_KEY_PREFIX + req.params.page_id;
       
@@ -35,11 +35,11 @@ module.exports = function (app, redis, url) {
   });
   
   // GET /pages/:page_id/objects
-  app.get('/pages/:page_id/objects', function (req, res) {
+  app.get('/pages/:page_id/objects', function(req, res) {
     if (req.params.page_id) {
       var key = process.env.REDIS_KEY_PREFIX + req.params.page_id;
       
-      redis.hgetall(key, function (err, values) {
+      redis.hgetall(key, function(err, values) {
         if (!err) {
           var data = {};
           

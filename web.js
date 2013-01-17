@@ -20,7 +20,7 @@ var redis = require('redis-url').connect(process.env.REDIS_URL);
 
 // Define routes.
 
-var checkOrigin = function (req, res, next) {
+var checkOrigin = function(req, res, next) {
   var origin = url.parse(req.headers.origin);
   
   if (origin.host == process.env.REMOTE_HOST) {
@@ -37,6 +37,6 @@ require('./app/controllers/objects')(app, redis, url);
 
 var port = process.env.PORT;
 
-app.listen(port, function () {
+app.listen(port, function() {
   console.log('[server]', 'listening on ' + port);
 });
