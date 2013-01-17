@@ -7,10 +7,9 @@ and [Redis](http://redis.io), records and replays positional data for objects on
 a webpage. [jQuery](http://jquery.com) and [jQuery UI](http://jqueryui.com) are
 used for the script, giving the gift of movement.
 
-An example, 'rectangles', is included within `public/`. This can be run locally.
-For production, deployment to [Heroku](http://www.heroku.com) can be
-accomplished in but few steps, and `public/scripts/unmoved.js` can be included
-within an existing site.
+Examples are included within `demo/`. For production, deployment to
+[Heroku](http://www.heroku.com) can be accomplished in but few steps, and
+`src/unmoved.js` can be included within an existing site.
 
 More sleep lost by [tiredpixel](http://www.tiredpixel.com).
 
@@ -29,10 +28,11 @@ exampled in `.env.example`; I'm enamoured of
 [foreman](https://github.com/ddollar/foreman), so I copy `.env.example` to
 `.env`, tweak it all about, and run `foreman start`.
 
-If you'd like to play with example content, then serve `public` using something
-like [http-server](https://github.com/nodeapps/http-server). `public/` isn't
-served by the server itself as it's not always needed; perhaps it should be
-served in development only?
+If you'd like to play with example content, then serve using something like
+[http-server](https://github.com/nodeapps/http-server). `demo/` isn't
+served by the server itself. Note that it's necessary to serve the directory
+containing both `demo/` and `src/`; otherwise, demos can't access the scripts.
+Visit the </demo/rectangles/index.html> demo in a browser.
 
 
 Production (Server)
@@ -66,7 +66,7 @@ Production (Client)
 
 Include [jQuery](http://jquery.com) and [jQuery UI](http://jqueryui.com).
 
-Include a copy, minified if required, of the `public/scripts/unmoved.js` script.
+Include a copy, minified if required, of the `src/unmoved.js` script.
 
 Use the exported `unmoved()` method, called on a [jQuery](http://jquery.com)
 object or objects:
