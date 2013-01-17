@@ -1,20 +1,20 @@
-(function ($) {
+(function($) {
   'use strict';
   
-  $.fn.unmoved = function (options) {
+  $.fn.unmoved = function(options) {
     
     var settings = $.extend({
       'objectsResource' : '/pages/' + encodeURIComponent(window.location.href) + '/objects',
     }, options);
     
-    return this.each(function () {
+    return this.each(function() {
       
       var $this = $(this);
       
-      var $load = function () {
+      var $load = function() {
         $this.fadeTo('fast', 0.5);
         
-        $.get(settings.objectsResource, function (data) {
+        $.get(settings.objectsResource, function(data) {
           for (var id in data) {
             if (data.hasOwnProperty(id)) {
               if ('top' in data[id] && 'left' in data[id]) {
@@ -31,16 +31,16 @@
         });
       };
       
-      var $record = function () {
+      var $record = function() {
         $this.draggable({
-          'start' : function (event, ui) {
+          'start' : function(event, ui) {
             ui.helper.fadeTo('fast', 0.5);
           },
-          'stop' : function (event, ui) {
+          'stop' : function(event, ui) {
             $.post(settings.objectsResource + '/' + ui.helper.context.id, {
               'top'  : ui.position.top,
               'left' : ui.position.left,
-            }, function () {
+            }, function() {
               ui.helper.fadeTo('fast', 1);
             });
           }
