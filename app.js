@@ -32,7 +32,8 @@ var pages_objects = require('./routes/pages_objects');
 var checkOrigin = function(req, res, next) {
   var origin = url.parse(req.headers.origin);
   
-  if (origin.host == process.env.REMOTE_HOST) {
+  if (typeof process.env.REMOTE_HOST === 'undefined' ||
+      origin.host == process.env.REMOTE_HOST) {
     next();
   }
 }
@@ -41,7 +42,8 @@ var pages_objectsBefore = function(req, res, next) {
   if (req.params.page_id) {
     var page_id = url.parse(req.params.page_id);
     
-    if (page_id.host == process.env.REMOTE_HOST) {
+    if (typeof process.env.REMOTE_HOST === 'undefined' ||
+        page_id.host == process.env.REMOTE_HOST) {
       next();
     }
   }
