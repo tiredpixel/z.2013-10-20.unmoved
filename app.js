@@ -30,20 +30,24 @@ app.configure('development', function() {
 var pages_objects = require('./routes/pages_objects');
 
 var checkOrigin = function(req, res, next) {
-  var origin = url.parse(req.headers.origin);
-  
-  if (typeof process.env.REMOTE_HOST === 'undefined' ||
-      origin.host == process.env.REMOTE_HOST) {
-    next();
+  if (typeof req.headers.origin !== 'undefined') {
+    var origin = url.parse(req.headers.origin);
+    
+    if (typeof process.env.REMOTE_HOST === 'undefined' ||
+        (typeof origin.host !== 'undefined' &&
+        origin.host == process.env.REMOTE_HOST)) {
+      next();
+    }
   }
 }
 
 var pages_objectsBefore = function(req, res, next) {
-  if (req.params.page_id) {
+  if (typeof req.params.page_id !== 'undefined') {
     var page_id = url.parse(req.params.page_id);
     
     if (typeof process.env.REMOTE_HOST === 'undefined' ||
-        page_id.host == process.env.REMOTE_HOST) {
+        (typeof page_id.host !== 'undefined' &&
+        page_id.host == process.env.REMOTE_HOST)) {
       next();
     }
   }
