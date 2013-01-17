@@ -21,8 +21,6 @@ exports.index = function(req, res) {
         
         res.header('Access-Control-Allow-Origin', req.headers.origin);
         res.send(data);
-        
-        console.log('[GET ' + req.originalUrl + ']', key);
       }
     });
   }
@@ -48,7 +46,5 @@ exports.update = function(req, res) {
     
     res.header('Access-Control-Allow-Origin', req.headers.origin);
     res.send();
-    
-    console.log('[POST ' + req.originalUrl + ']', key, data);
   }
 }
