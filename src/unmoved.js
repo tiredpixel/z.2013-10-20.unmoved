@@ -10,49 +10,45 @@
     var pages_objectsResource = settings.host + '/pages/' +
         encodeURIComponent(window.location.href) + '/objects';
     
-    return this.each(function() {
+    var load = function(object) {
+      object.fadeTo('fast', 0.5);
       
+      $.get(pages_objectsResource + '/' + object.context.id, function(data) {
+        object.fadeTo('fast', 0);
+        
+        if (typeof data.top !== 'undefined' &&
+            typeof data.left !== 'undefined') {
+          object.animate({
+            'top'     : parseInt(data.top),
+            'left'    : parseInt(data.left),
+          }, 0);
+        }
+        
+        object.fadeTo('fast', 1);
+      });
+    };
+    
+    var record = function(object) {
+      object.draggable({
+        'start' : function(event, ui) {
+          object.fadeTo('fast', 0.5);
+        },
+        'stop' : function(event, ui) {
+          $.post(pages_objectsResource + '/' + object.context.id, {
+            'top'  : ui.position.top,
+            'left' : ui.position.left,
+          }, function() {
+            object.fadeTo('fast', 1);
+          });
+        }
+      });
+    };
+    
+    return this.each(function() {
       var $this = $(this);
       
-      var $load = function() {
-        $this.fadeTo('fast', 0.5);
-        
-        $.get(pages_objectsResource, function(data) {
-          for (var id in data) {
-            if (data.hasOwnProperty(id)) {
-              if ('top' in data[id] && 'left' in data[id]) {
-                $('#' + id).animate({
-                  'top'     : parseInt(data[id].top),
-                  'left'    : parseInt(data[id].left),
-                  'opacity' : 1,
-                }, 'fast');
-              }
-            }
-          }
-          
-          $this.fadeTo('fast', 1);
-        });
-      };
-      
-      var $record = function() {
-        $this.draggable({
-          'start' : function(event, ui) {
-            ui.helper.fadeTo('fast', 0.5);
-          },
-          'stop' : function(event, ui) {
-            $.post(pages_objectsResource + '/' + ui.helper.context.id, {
-              'top'  : ui.position.top,
-              'left' : ui.position.left,
-            }, function() {
-              ui.helper.fadeTo('fast', 1);
-            });
-          }
-        });
-      };
-      
-      $load();
-      $record();
-      
+      load($this);
+      record($this);
     });
     
   };
