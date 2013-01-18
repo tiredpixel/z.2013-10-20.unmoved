@@ -61,7 +61,7 @@ app.configure('production', function() {
 app.all('/pages/:page_id/objects*', pages_objectsBefore);
 
 app.post('/pages/:page_id/objects/:object_id', pages_objects.update);
-app.get( '/pages/:page_id/objects',            pages_objects.index);
+app.get( '/pages/:page_id/objects/:object_id', pages_objects.show);
 
 
 // Run server.
