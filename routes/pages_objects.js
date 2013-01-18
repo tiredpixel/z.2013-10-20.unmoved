@@ -3,27 +3,20 @@ var db     = require('./../db');
 var config = require('./../config');
 
 /**
- * GET /pages/:page_id/objects
+ * GET /pages/:page_id/objects/:object_id
  */
-exports.index = function(req, res) {
-  if (typeof req.params.page_id !== 'undefined' && req.params.page_id) {
+exports.show = function(req, res) {
+  if (typeof req.params.page_id !== 'undefined' && req.params.page_id &&
+      typeof req.params.object_id !== 'undefined' && req.params.object_id) {
     var key = config.REDIS_KEY_PREFIX + req.params.page_id;
     
-    db.hgetall(key, function(err, values) {
+    db.hget(key, req.params.object_id, function(err, value) {
       if (!err) {
-        var data = {};
-        
-        for (var field in values) {
-          if (values.hasOwnProperty(field)) {
-            data[field] = JSON.parse(values[field]);
-          }
-        }
-        
         if (typeof req.headers.origin !== 'undefined') {
           res.header('Access-Control-Allow-Origin', req.headers.origin);
         }
         
-        res.send(data);
+        res.send(JSON.parse(value));
       }
     });
   }
