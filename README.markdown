@@ -26,13 +26,9 @@ Install dependencies using [npm](https://npmjs.org): `npm install`.
 Start the server using your preferred method, setting the environment variables
 exampled in `.env.example`; I'm enamoured of
 [foreman](https://github.com/ddollar/foreman), so I copy `.env.example` to
-`.env`, tweak it all about, and run `foreman start`.
-
-If you'd like to play with example content, then serve using something like
-[http-server](https://github.com/nodeapps/http-server). `demo/` isn't
-served by the server itself. Note that it's necessary to serve the directory
-containing both `demo/` and `src/`; otherwise, demos can't access the scripts.
-Visit the </demo/rectangles/index.html> demo in a browser.
+`.env`, tweak it all about, and run `foreman start`. In development, the root is
+served statically, enabling you to visit </demo/rectangles/index.html> in your
+browser, without further ado.
 
 
 Production (Server)
