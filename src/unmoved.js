@@ -14,13 +14,14 @@
       object.fadeTo('fast', 0.5);
       
       $.get(pages_objectsResource + '/' + object.context.id, function(data) {
+        object.fadeTo('fast', 0);
+        
         if (typeof data.top !== 'undefined' &&
             typeof data.left !== 'undefined') {
           object.animate({
             'top'     : parseInt(data.top),
             'left'    : parseInt(data.left),
-            'opacity' : 1,
-          }, 'fast');
+          }, 0);
         }
         
         object.fadeTo('fast', 1);
