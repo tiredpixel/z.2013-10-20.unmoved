@@ -68,8 +68,7 @@ Use the exported `unmoved()` method, called on a [jQuery](http://jquery.com)
 object or objects:
 
     $('.unmoved-moveable').unmoved({
-      'objectsResource' : 'http://EXAMPLE.herokuapp.com/pages/' +
-          encodeURIComponent(window.location.href) + '/objects'
+      'host' : 'http://EXAMPLE.herokuapp.com'
     });
 
 

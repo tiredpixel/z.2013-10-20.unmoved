@@ -4,8 +4,11 @@
   $.fn.unmoved = function(options) {
     
     var settings = $.extend({
-      'objectsResource' : '/pages/' + encodeURIComponent(window.location.href) + '/objects',
+      'host' : '',
     }, options);
+    
+    var pages_objectsResource = settings.host + '/pages/' +
+        encodeURIComponent(window.location.href) + '/objects';
     
     return this.each(function() {
       
@@ -14,7 +17,7 @@
       var $load = function() {
         $this.fadeTo('fast', 0.5);
         
-        $.get(settings.objectsResource, function(data) {
+        $.get(pages_objectsResource, function(data) {
           for (var id in data) {
             if (data.hasOwnProperty(id)) {
               if ('top' in data[id] && 'left' in data[id]) {
@@ -37,7 +40,7 @@
             ui.helper.fadeTo('fast', 0.5);
           },
           'stop' : function(event, ui) {
-            $.post(settings.objectsResource + '/' + ui.helper.context.id, {
+            $.post(pages_objectsResource + '/' + ui.helper.context.id, {
               'top'  : ui.position.top,
               'left' : ui.position.left,
             }, function() {
