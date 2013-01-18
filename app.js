@@ -22,6 +22,7 @@ app.configure(function() {
 
 app.configure('development', function() {
   app.use(express.errorHandler());
+  app.use(express.static(__dirname));
 });
 
 
@@ -53,7 +54,10 @@ var pages_objectsBefore = function(req, res, next) {
   }
 }
 
-app.all('/*', checkOrigin);
+app.configure('production', function() {
+  app.all('/*', checkOrigin);
+});
+
 app.all('/pages/:page_id/objects*', pages_objectsBefore);
 
 app.post('/pages/:page_id/objects/:object_id', pages_objects.update);
