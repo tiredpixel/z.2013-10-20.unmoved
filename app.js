@@ -7,13 +7,13 @@ var express = require('express');
 var http    = require('http');
 var url     = require('url');
 
+var config = require('./config');
 
 // Set up server (Node.js Express).
 
 var app = express();
 
 app.configure(function() {
-  app.set('port', process.env.PORT || 3000);
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
@@ -34,9 +34,9 @@ var checkOrigin = function(req, res, next) {
   if (typeof req.headers.origin !== 'undefined') {
     var origin = url.parse(req.headers.origin);
     
-    if (typeof process.env.REMOTE_HOST === 'undefined' ||
+    if (typeof config.REMOTE_HOST === 'undefined' ||
         (typeof origin.host !== 'undefined' &&
-        origin.host == process.env.REMOTE_HOST)) {
+        origin.host == config.REMOTE_HOST)) {
       next();
     }
   }
@@ -46,9 +46,9 @@ var pages_objectsBefore = function(req, res, next) {
   if (typeof req.params.page_id !== 'undefined') {
     var page_id = url.parse(req.params.page_id);
     
-    if (typeof process.env.REMOTE_HOST === 'undefined' ||
+    if (typeof config.REMOTE_HOST === 'undefined' ||
         (typeof page_id.host !== 'undefined' &&
-        page_id.host == process.env.REMOTE_HOST)) {
+        page_id.host == config.REMOTE_HOST)) {
       next();
     }
   }
@@ -66,6 +66,8 @@ app.get( '/pages/:page_id/objects',            pages_objects.index);
 
 // Run server.
 
-http.createServer(app).listen(app.get('port'), function() {
-  console.log('[server]', 'listening on ' + app.get('port'));
+http.createServer(app).listen(config.PORT, function() {
+  console.log('config', JSON.stringify(config));
+  
+  console.log('server', 'listening on ' + config.PORT);
 });

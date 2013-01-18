@@ -1,3 +1,5 @@
 var redis = require('redis-url');
 
-module.exports = redis.connect(process.env.REDIS_URL);
+var config = require('./config');
+
+module.exports = redis.connect(config.REDIS_URL);
