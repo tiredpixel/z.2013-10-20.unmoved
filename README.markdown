@@ -27,8 +27,9 @@ Start the server using your preferred method, setting the environment variables
 exampled in `.env.example`; I'm enamoured of
 [foreman](https://github.com/ddollar/foreman), so I copy `.env.example` to
 `.env`, tweak it all about, and run `foreman start`. In development, the root is
-served statically, enabling you to visit </demo/rectangles/index.html> in your
-browser, without further ado.
+served statically, enabling you to visit
+[/demo/rectangles/index.html](/demo/rectangles/index.html) in your browser,
+without further ado.
 
 
 Production (Server)
