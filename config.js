@@ -11,5 +11,5 @@ module.exports = {
   'PORT'             : process.env.PORT             || 3000,
   'REDIS_URL'        : process.env.REDIS_URL,
   'REDIS_KEY_PREFIX' : process.env.REDIS_KEY_PREFIX || 'unmoved:',
-  'REMOTE_HOST'      : process.env.REMOTE_HOST,
-}
+  'REMOTE_HOST'      : process.env.REMOTE_HOST
+};
