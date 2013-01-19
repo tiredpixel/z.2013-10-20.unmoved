@@ -13,14 +13,18 @@ var config = require('./config');
 
 var app = express();
 
-app.configure(function() {
+app.configure(function () {
+  'use strict';
+  
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
 });
 
-app.configure('development', function() {
+app.configure('development', function () {
+  'use strict';
+  
   app.use(express.errorHandler());
   app.use(express.static(__dirname));
 });
@@ -30,43 +34,51 @@ app.configure('development', function() {
 
 var pages_objects = require('./routes/pages_objects');
 
-var checkOrigin = function(req, res, next) {
-  if (typeof req.headers.origin !== 'undefined') {
+var checkOrigin = function (req, res, next) {
+  'use strict';
+  
+  if (req.headers.origin !== undefined) {
     var origin = url.parse(req.headers.origin);
     
-    if (typeof config.REMOTE_HOST === 'undefined' ||
-        (typeof origin.host !== 'undefined' &&
-        origin.host == config.REMOTE_HOST)) {
+    if (config.REMOTE_HOST === undefined ||
+        (origin.host !== undefined &&
+        origin.host === config.REMOTE_HOST)) {
       next();
     }
   }
-}
+};
 
-var pages_objectsBefore = function(req, res, next) {
-  if (typeof req.params.page_id !== 'undefined') {
+var pages_objectsBefore = function (req, res, next) {
+  'use strict';
+  
+  if (req.params.page_id !== undefined) {
     var page_id = url.parse(req.params.page_id);
     
-    if (typeof config.REMOTE_HOST === 'undefined' ||
-        (typeof page_id.host !== 'undefined' &&
-        page_id.host == config.REMOTE_HOST)) {
+    if (config.REMOTE_HOST === undefined ||
+        (page_id.host !== undefined &&
+        page_id.host === config.REMOTE_HOST)) {
       next();
     }
   }
-}
+};
 
-app.configure('production', function() {
+app.configure('production', function () {
+  'use strict';
+  
   app.all('/*', checkOrigin);
 });
 
 app.all('/pages/:page_id/objects*', pages_objectsBefore);
 
 app.post('/pages/:page_id/objects/:object_id', pages_objects.update);
-app.get( '/pages/:page_id/objects/:object_id', pages_objects.show);
+app.get('/pages/:page_id/objects/:object_id',  pages_objects.show);
 
 
 // Run server.
 
-http.createServer(app).listen(config.PORT, function() {
+http.createServer(app).listen(config.PORT, function () {
+  'use strict';
+  
   console.log('config', JSON.stringify(config));
   
   console.log('server', 'listening on ' + config.PORT);
