@@ -29,6 +29,10 @@
     };
     
     var record = function (object) {
+      if (object.css('cursor') === 'auto') {
+        object.css('cursor', 'move');
+      }
+      
       object.draggable({
         'start' : function (event, ui) {
           object.fadeTo('fast', 0.5);
