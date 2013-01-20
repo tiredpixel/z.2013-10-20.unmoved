@@ -9,7 +9,8 @@ used for the script, giving the gift of movement.
 
 Examples are included within `demo/`. For production, deployment to
 [Heroku](http://www.heroku.com) can be accomplished in but few steps, and
-`src/unmoved.js` can be included within an existing site.
+existing sites can either include `src/unmoved.js` or link to the minified
+version available on the tiredpixel CDN.
 
 More sleep lost by [tiredpixel](http://www.tiredpixel.com).
 
@@ -63,7 +64,15 @@ Production (Client)
 
 Include [jQuery](http://jquery.com) and [jQuery UI](http://jqueryui.com).
 
-Include a copy, minified if required, of the `src/unmoved.js` script.
+Either include a copy, minified if required, of the `src/unmoved.js` script, or
+(from v0.3.1 onwards) link to the minified version available on the tiredpixel
+CDN. The CDN address is of the form
+
+    http://cdn.tiredpixel.com/tiredpixel/unmoved/VERSION/unmoved.min.js
+
+where VERSION is the release tag name. For example, v0.3.1 is available at
+
+    http://cdn.tiredpixel.com/tiredpixel/unmoved/v0.3.1/unmoved.min.js
 
 Use the exported `unmoved()` method, called on a [jQuery](http://jquery.com)
 object or objects:
