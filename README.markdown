@@ -15,6 +15,15 @@ version available on the tiredpixel CDN.
 More sleep lost by [tiredpixel](http://www.tiredpixel.com).
 
 
+Demo
+----
+
+To view the examples live, please head on over to:
+
+- <http://demo.unmoved.tiredpixel.com/rectangles/>
+- <http://demo.unmoved.tiredpixel.com/chess/>
+
+
 Development
 -----------
 
