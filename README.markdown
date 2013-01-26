@@ -41,6 +41,8 @@ served statically, enabling you to visit
 [/demo/rectangles/index.html](/demo/rectangles/index.html) in your browser,
 without further ado.
 
+Tests are written using [vows](http://vowsjs.org). Run all tests: `vows`.
+
 
 Production (Server)
 -------------------
