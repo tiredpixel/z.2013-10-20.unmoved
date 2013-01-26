@@ -1,6 +1,6 @@
 
-var db     = require('./../db');
-var config = require('./../config');
+var db     = require('./../db')(process.env);
+var config = require('./../config')(process.env);
 
 /**
  * GET /pages/:page_id/objects/:object_id
