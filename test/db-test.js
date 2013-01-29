@@ -47,7 +47,7 @@ describe('db', function () {
   
   describe('with test config', function () {
     beforeEach(function () {
-      var config = require('./../config')(process.env)
+      var config = require('./../config')(process.env);
       
       db = require('./../db')(config);
     });
