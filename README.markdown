@@ -41,7 +41,9 @@ served statically, enabling you to visit
 [/demo/rectangles/index.html](/demo/rectangles/index.html) in your browser,
 without further ado.
 
-Tests are written using [vows](http://vowsjs.org). Run all tests: `vows`.
+Tests are written using [vows](http://vowsjs.org). When running tests, be sure
+to configure your test config. I use foreman, so I copy `.test.env.example`
+to `.test.env`, tweak it all about, and run `foreman run -e .test.env vows`.
 
 
 Production (Server)
