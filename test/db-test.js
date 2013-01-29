@@ -1,56 +1,65 @@
 'use strict';
 
-var vows   = require('vows');
 var assert = require('assert');
 
-vows.describe('db').addBatch({
-  'export': {
-    'when REDIS_URL set': {
-      topic: function () {
-        // This need not be a valid connection.
-        return require('./../db')({
-          REDIS_URL: "redis://example.com:1234/15"
-        });
-      },
-      'should be a RedisClient': function (db) {
-        assert.equal('RedisClient', db.constructor.name);
-      },
-      'should set host': function (db) {
-        assert.equal('example.com', db.host);
-      },
-      'should set port': function (db) {
-        assert.equal(1234, db.port);
-      }
-    },
-    'when REDIS_URL unset': {
-      topic: function () {
-        // This need not be a valid connection.
-        return require('./../db')({});
-      },
-      'should be a RedisClient': function (db) {
-        assert.equal('RedisClient', db.constructor.name);
-      },
-      'should default host to localhost': function (db) {
-        assert.equal('localhost', db.host);
-      },
-      'should default port to 6379': function (db) {
-        assert.equal(6379, db.port);
-      }
-    },
-    'with test config': {
-      topic: function () {
-        var config = require('./../config')(process.env)
+describe('db', function () {
+  var db;
+  
+  describe('with REDIS_URL set', function () {
+    beforeEach(function () {
+      // This need not be a valid connection.
+      db = require('./../db')({
+        REDIS_URL: "redis://example.com:1234/15"
+      });
+    });
+    
+    it('should be a RedisClient', function () {
+      assert.equal(db.constructor.name, 'RedisClient');
+    });
+    
+    it('should set host', function () {
+      assert.equal(db.host, 'example.com');
+    });
+    
+    it('should set port', function () {
+      assert.equal(db.port, 1234);
+    });
+  });
+  
+  describe('with REDIS_URL unset', function () {
+    beforeEach(function () {
+      // This need not be a valid connection.
+      db = require('./../db')({});
+    });
+    
+    it('should be a RedisClient', function () {
+      assert.equal(db.constructor.name, 'RedisClient');
+    });
+    
+    it('should set host', function () {
+      assert.equal(db.host, 'localhost');
+    });
+    
+    it('should set port', function () {
+      assert.equal(db.port, 6379);
+    });
+  });
+  
+  describe('with test config', function () {
+    beforeEach(function () {
+      var config = require('./../config')(process.env)
+      
+      db = require('./../db')(config);
+    });
+    
+    it('should PING-PONG', function (done) {
+      db.ping(function (err, value) {
+        if (err) return done(err);
         
-        return require('./../db')(config);
-      },
-      'calling PING': {
-        topic: function (db) {
-          db.ping(this.callback);
-        },
-        'should return PONG': function (err, value) {
-          assert('PONG', value);
-        }
-      }
-    }
-  }
-}).export(module);
+        assert(value, 'PONG');
+        
+        done();
+      });
+    });
+  });
+});

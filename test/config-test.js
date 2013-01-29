@@ -1,65 +1,48 @@
 'use strict';
 
-var vows   = require('vows');
 var assert = require('assert');
 
-vows.describe('config').addBatch({
-  'export': {
-    'when PORT set': {
-      topic: function () {
-        return require('./../config')({
-          PORT: "TEST_PORT"
-        });
-      },
-      'should set PORT': function (config) {
-        assert.equal(config.PORT, "TEST_PORT");
-      },
-    },
-    'when PORT unset': {
-      topic: function () {
-        return require('./../config')({});
-      },
-      'should default PORT to 3000': function (config) {
-        assert.equal(config.PORT, 3000);
-      },
-    },
-    'when REDIS_URL set': {
-      topic: function () {
-        return require('./../config')({
-          REDIS_URL: "TEST_REDIS_URL"
-        });
-      },
-      'should set REDIS_URL': function (config) {
-        assert.equal(config.REDIS_URL, "TEST_REDIS_URL");
-      },
-    },
-    'when REDIS_KEY_PREFIX set': {
-      topic: function () {
-        return require('./../config')({
-          REDIS_KEY_PREFIX: "TEST_REDIS_KEY_PREFIX"
-        });
-      },
-      'should set REDIS_KEY_PREFIX': function (config) {
-        assert.equal(config.REDIS_KEY_PREFIX, "TEST_REDIS_KEY_PREFIX");
-      },
-    },
-    'when REDIS_KEY_PREFIX unset': {
-      topic: function () {
-        return require('./../config')({});
-      },
-      'should default REDIS_KEY_PREFIX to unmoved:': function (config) {
-        assert.equal(config.REDIS_KEY_PREFIX, "unmoved:");
-      },
-    },
-    'when REMOTE_HOST set': {
-      topic: function () {
-        return require('./../config')({
-          REMOTE_HOST: "TEST_REMOTE_HOST"
-        });
-      },
-      'should set REMOTE_HOST': function (config) {
-        assert.equal(config.REMOTE_HOST, "TEST_REMOTE_HOST");
-      }
-    }
-  }
-}).export(module);
+describe('config', function () {
+  var config;
+  
+  describe('with env variables set', function () {
+    beforeEach(function () {
+      config = require('./../config')({
+        PORT:             "TEST_PORT",
+        REDIS_URL:        "TEST_REDIS_URL",
+        REDIS_KEY_PREFIX: "TEST_REDIS_KEY_PREFIX",
+        REMOTE_HOST:      "TEST_REMOTE_HOST"
+      });
+    });
+    
+    it('should set PORT', function () {
+      assert.equal(config.PORT, "TEST_PORT");
+    });
+    
+    it('should set REDIS_URL', function () {
+      assert.equal(config.REDIS_URL, "TEST_REDIS_URL");
+    });
+    
+    it('should set REDIS_KEY_PREFIX', function () {
+      assert.equal(config.REDIS_KEY_PREFIX, "TEST_REDIS_KEY_PREFIX");
+    });
+    
+    it('should set REMOTE_HOST', function () {
+      assert.equal(config.REMOTE_HOST, "TEST_REMOTE_HOST");
+    });
+  });
+  
+  describe('with env variables unset', function () {
+    beforeEach(function () {
+      config = require('./../config')({});
+    });
+    
+    it('should default PORT to 3000', function () {
+      assert.equal(config.PORT, 3000);
+    });
+    
+    it('should default REDIS_KEY_PREFIX to unmoved:', function () {
+      assert.equal(config.REDIS_KEY_PREFIX, "unmoved:");
+    });
+  });
+});
