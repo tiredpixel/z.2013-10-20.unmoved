@@ -1,6 +1,17 @@
+h1,
+p {
+  text-align: center;
+  margin: 25px auto;
+}
+
+h1 {
+  font-size: 25px;
+}
+
 .rectangle {
-  width: 200px;
-  height: 100px;
+  width: 89px;
+  height: 55px;
+  margin: auto;
 }
 
 .rectangle#red {

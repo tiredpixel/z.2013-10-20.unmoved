@@ -9,9 +9,21 @@ used for the script, giving the gift of movement.
 
 Examples are included within `demo/`. For production, deployment to
 [Heroku](http://www.heroku.com) can be accomplished in but few steps, and
-`src/unmoved.js` can be included within an existing site.
+existing sites can either include `src/unmoved.js` or link to the minified
+version available on the tiredpixel CDN.
 
 More sleep lost by [tiredpixel](http://www.tiredpixel.com).
+
+[![Build Status](https://travis-ci.org/tiredpixel/unmoved.png?branch=master,develop)](https://travis-ci.org/tiredpixel/unmoved)
+
+
+Demo
+----
+
+To view the examples live, please head on over to:
+
+- <http://demo.unmoved.tiredpixel.com/rectangles/>
+- <http://demo.unmoved.tiredpixel.com/chess/>
 
 
 Development
@@ -30,6 +42,14 @@ exampled in `.env.example`; I'm enamoured of
 served statically, enabling you to visit
 [/demo/rectangles/index.html](/demo/rectangles/index.html) in your browser,
 without further ado.
+
+Tests are written using [mocha](http://visionmedia.github.com/mocha/). When
+running tests, be sure to configure your test config. I use foreman, so I copy
+`.test.env.example` to `.test.env`, tweak it all about, and run:
+
+    foreman run -e .test.env mocha -R spec
+
+The `-R spec` is optional.
 
 
 Production (Server)
@@ -63,7 +83,15 @@ Production (Client)
 
 Include [jQuery](http://jquery.com) and [jQuery UI](http://jqueryui.com).
 
-Include a copy, minified if required, of the `src/unmoved.js` script.
+Either include a copy, minified if required, of the `src/unmoved.js` script, or
+(from v0.3.1 onwards) link to the minified version available on the tiredpixel
+CDN. The CDN address is of the form
+
+    http://cdn.tiredpixel.com/tiredpixel/unmoved/VERSION/unmoved.min.js
+
+where VERSION is the release tag name. For example, v0.4.0 is available at
+
+    http://cdn.tiredpixel.com/tiredpixel/unmoved/v0.4.0/unmoved.min.js
 
 Use the exported `unmoved()` method, called on a [jQuery](http://jquery.com)
 object or objects:

@@ -7,7 +7,7 @@ var express = require('express');
 var http    = require('http');
 var url     = require('url');
 
-var config = require('./config');
+var config = require('./config')(process.env);
 
 // Set up server (Node.js Express).
 
