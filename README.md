@@ -89,9 +89,9 @@ CDN. The CDN address is of the form
 
     http://cdn.tiredpixel.com/tiredpixel/unmoved/VERSION/unmoved.min.js
 
-where VERSION is the release tag name. For example, v0.3.1 is available at
+where VERSION is the release tag name. For example, v0.4.0 is available at
 
-    http://cdn.tiredpixel.com/tiredpixel/unmoved/v0.3.1/unmoved.min.js
+    http://cdn.tiredpixel.com/tiredpixel/unmoved/v0.4.0/unmoved.min.js
 
 Use the exported `unmoved()` method, called on a [jQuery](http://jquery.com)
 object or objects:
