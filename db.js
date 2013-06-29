@@ -1,17 +1,22 @@
-var redis = require('redis-url');
 
-var config = require('./config');
-
-var db = redis.connect(config.REDIS_URL);
-
-if (config.REDIS_URL !== undefined) {
-  var matches = config.REDIS_URL.match(/\/(\d+)$/);
+module.exports = function (env) {
+  'use strict';
   
-  if (matches && matches[1] !== undefined) {
-    var dbnum = matches[1];
+  var redis = require('redis-url');
+  
+  var config = require('./config')(env);
+  
+  var db = redis.connect(config.REDIS_URL);
+  
+  if (config.REDIS_URL !== undefined) {
+    var matches = config.REDIS_URL.match(/\/(\d+)$/);
     
-    db.select(dbnum);
+    if (matches && matches[1] !== undefined) {
+      var dbnum = matches[1];
+      
+      db.select(dbnum);
+    }
   }
-}
-
-module.exports = db;
+  
+  return db;
+};
