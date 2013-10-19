@@ -14,7 +14,7 @@ version available on the tiredpixel CDN.
 
 More sleep lost by [tiredpixel](http://www.tiredpixel.com).
 
-[![Build Status](https://travis-ci.org/tiredpixel/unmoved.png?branch=master,develop)](https://travis-ci.org/tiredpixel/unmoved)
+[![Build Status](https://travis-ci.org/tiredpixel/unmoved.png?branch=master,stable)](https://travis-ci.org/tiredpixel/unmoved)
 
 
 Demo
