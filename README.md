@@ -43,7 +43,7 @@ served statically, enabling you to visit
 [/demo/rectangles/index.html](/demo/rectangles/index.html) in your browser,
 without further ado.
 
-Tests are written using [mocha](http://visionmedia.github.com/mocha/). When
+Tests are written using [mocha](http://mochajs.org/). When
 running tests, be sure to configure your test config. I use foreman, so I copy
 `.test.env.example` to `.test.env`, tweak it all about, and run:
 
